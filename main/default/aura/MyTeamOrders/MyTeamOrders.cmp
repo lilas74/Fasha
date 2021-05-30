@@ -1,0 +1,111 @@
+<aura:component controller="MyTeamOrdersController" implements="flexipage:availableForAllPageTypes" access="global">
+    <aura:attribute name="mapValues" type="Order" />
+    <aura:attribute name="total" type="Decimal"/>
+
+    <div class="slds-m-around_xx-large">
+        <div class="slds-box slds-theme_default">
+            <lightning:button class="slds-button slds-button_brand slds-m-vertical_small slds-align_absolute-center" label="Display details" onclick="{!c.doInit}"/>
+
+            <aura:iteration items="{!v.mapValues}"  var="mapKey" indexVar="key">
+                <div class="slds-page-header">
+                    <div class="slds-page-header__row">
+                        <div class="slds-page-header__col-title">
+                            <div class="slds-media">
+                                <div class="slds-media__figure">
+
+                                </div>
+                                <div class="slds-media__body">
+                                    <div class="slds-page-header__name">
+                                        <div class="slds-page-header__name-title">
+                                            <h1>
+                                                <span class="slds-page-header__title slds-truncate" title="{!mapKey.key}">{!mapKey.key}</span>
+                                            </h1>
+                                        </div>
+                                    </div>
+                                    <p class="slds-page-header__title" title="{!mapKey.sum}">Total des commandes : <lightning:formattedNumber value="{!mapKey.sum}" style="currency" currencyCode="EUR"/></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <table class="slds-table slds-table_cell-buffer slds-table_bordered" aria-labelledby="element-with-table-label other-element-with-table-label">
+                    <aura:iteration items="{!mapKey.value}" var="mapValue" >
+                        <thead>
+
+                        <tr>
+                            <th class="" scope="col" colspan="8" style="padding:0.5rem;background:#16325c; color:white" >
+                                <div class="slds-truncate class slds-text-title_caps slds-form-element__label" title="Order Number"  style="color:white">Sum of order:  <lightning:formattedNumber value="{!mapValue.sumByComm}" style="currency" currencyCode="EUR"/> for the commercial : {!mapValue.owner}</div>
+                            </th></tr>
+                        <tr class="slds-line-height_reset">
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Order Number">Order Number</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Account Name">Account Name</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Order Amount">Order Amount</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Status">Status</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Contract Number">Contract Number</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Shipment Cost">Shipment Cost</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Net Amount">Net Amount</div>
+                            </th>
+
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Owner Name">Owner Name</div>
+                            </th>
+                        </tr>
+                        </thead>
+                        <aura:iteration items="{!mapValue}" var="val" indexVar="i">
+
+                            <tbody>
+                            <tr class="slds-hint-parent">
+                                <th data-label="Order Number" scope="row">
+                                    <div class="slds-truncate" title="{!val.OrderNumber}" recordId="{!v.mapValues.value}">
+                                        <a onclick="{!c.goToRecord}" id="{!val.Id}">{!val.OrderNumber}</a>
+                                    </div>
+                                </th>
+                                <td data-label="Account Name">
+                                    <div class="slds-truncate" title="{!val.Account.Name}">{!val.Account.Name}</div>
+                                </td>
+                                <td data-label="TotalAmount">
+                                    <div class="slds-truncate" title="{!val.TotalAmount}"><lightning:formattedNumber value="{!val.TotalAmount}" style="currency" currencyCode="EUR"/></div>
+                                </td>
+                                <td data-label="Status">
+                                    <div class="slds-truncate" title="{!val.Status}">{!val.Status}</div>
+                                </td>
+                                <td data-label="Contract Number">
+                                    <div class="slds-truncate" title="{!val.Contract.ContractNumber}">{!val.Contract.ContractNumber}</div>
+                                </td>
+                                <td data-label="Shipment Cost">
+                                    <div class="slds-truncate" title="{!val.ShipmentCost}"><lightning:formattedNumber value="{!val.ShipmentCost__c}" style="currency" currencyCode="EUR"/></div>
+                                </td>
+                                <td data-label="Net Amount">
+                                    <div class="slds-truncate" title="{!val.NetAmount}"><lightning:formattedNumber value="{!val.NetAmount__c}" style="currency" currencyCode="EUR"/></div>
+                                </td>
+                                <td data-label="Owner Name">
+                                    <div class="slds-truncate" title="{!val.Owner.Name}">{!val.Owner.Name}</div>
+                                </td>
+                            </tr>
+
+                            </tbody>
+
+                        </aura:iteration>
+                    </aura:iteration>
+
+                </table>
+                <br/>
+            </aura:iteration>
+        </div>
+    </div>
+
+</aura:component>
