@@ -4,9 +4,6 @@
 
 @IsTest
 private class UpdateAccountTurnoverBatchTest {
-    /**
-     * @description this method insert records with accounts and orders
-     */
     @TestSetup
     static void setUpPerTest() {
         List<Account> acct = TestDataFactory.createAccounts(5);
@@ -20,12 +17,8 @@ private class UpdateAccountTurnoverBatchTest {
         List<OrderItem> orderItems = TestDataFactory.createOrderItemsWithRandomQuantity(ord, priceBook);
 
     }
-    /**
-     * @description method to test the batch
-     */
     @isTest
     static void UpdateSalesRevenueBatchtest(){
-
         List<Order> orders = [SELECT Id,TotalAmount,AccountId FROM Order WHERE Name LIKE 'Order_%'];
         List<Order> updateOrders = new List<Order>();
         for(Order order : orders){
@@ -33,9 +26,7 @@ private class UpdateAccountTurnoverBatchTest {
             updateOrders.add(order);
         }
         update updateOrders;
-
         List<Account> accounts = [SELECT Id, Chiffre_d_affaire__c FROM Account WHERE Name LIKE 'TestAccount_%'];
-        //here we set a wrong amount to turnover after orders were updated
         for(Account acc : accounts){
             acc.Chiffre_d_affaire__c = 10;
         }
