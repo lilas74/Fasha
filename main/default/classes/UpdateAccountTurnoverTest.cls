@@ -30,7 +30,7 @@ private class UpdateAccountTurnoverTest {
         }
         Test.startTest();
         update orders;
-        update accounts;
+
         Test.stopTest();
 
         AggregateResult[] liste = [SELECT AccountId, SUM(TotalAmount)attendu FROM Order WHERE Name LIKE 'Order_%' GROUP BY AccountId];
@@ -39,7 +39,7 @@ private class UpdateAccountTurnoverTest {
         Decimal actual = 0;
         for (AggregateResult ar : liste) {
             accountId.add((ID) ar.get('AccountId'));
-            //System.debug(ar.get('attendu'));
+
             expected = (Decimal)ar.get('attendu');
 
             for (Id myAccountId : accountId) {
@@ -73,7 +73,7 @@ private class UpdateAccountTurnoverTest {
 
         Test.startTest();
         update orders;
-        update accounts;
+
         Test.stopTest();
 
         AggregateResult[] liste = [SELECT AccountId, SUM(TotalAmount)attendu FROM Order WHERE Name LIKE 'Order_%' AND Status ='Activated' GROUP BY AccountId];
@@ -82,13 +82,13 @@ private class UpdateAccountTurnoverTest {
         Decimal actual = 0;
         for (AggregateResult ar : liste) {
             accountId.add((ID) ar.get('AccountId'));
-            //System.debug(ar.get('Status'));
+
 
             expected = (Decimal)ar.get('attendu');
 
             for (Id myAccountId : accountId) {
                 Account accountsOne = [SELECT Id, Chiffre_d_affaire__c FROM Account WHERE Id = :myAccountId];
-                //System.debug('hello' + accountsOne.Chiffre_d_affaire__c);
+
                 actual = accountsOne.Chiffre_d_affaire__c;
 
             }
