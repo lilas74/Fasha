@@ -4,7 +4,9 @@
 
 ({
     getOrderList: function (component, event, helper) {
-
+        /**
+         * @description execute the apex class method to display all the order by role
+         */
         var action = component.get('c.getAllOrderByRole');
 
 
@@ -20,6 +22,7 @@
                     var sum = 0;
                     var sumByOwner = 0;
 
+                    //the function groupeBy is used to calculate the amount by user
                     var newResult = this.groupeBy(result[key], "OwnerId");
                     console.log(newResult);
                     for (var role in newResult) {
@@ -36,6 +39,7 @@
                         sum += result[key][a].TotalAmount;
 
                     }
+                    //as it is impossible to iterate over an object in a aura component, the Object is converted to an array
                     var newOne = Object.keys(newResult)
                         .map(function (key) {
                             return newResult[key];
@@ -54,6 +58,12 @@
         $A.enqueueAction(action);
 
     },
+    /**
+     *
+     * @param tableauObjets
+     * @param propriete to sort by
+     * @returns {*} an object {OwnerId:[],}
+     */
     groupeBy: function (tableauObjets, propriete) {
         return tableauObjets.reduce(function (acc, obj) {
             var cle = obj[propriete];

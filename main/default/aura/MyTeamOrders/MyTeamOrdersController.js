@@ -6,7 +6,7 @@
 ({
     doInit: function (component, event, helper) {
         helper.getOrderList(component);
-        //helper.getSumOfOrders(component);
+
 
     },
     goToRecord: function (component, event, helper) {
