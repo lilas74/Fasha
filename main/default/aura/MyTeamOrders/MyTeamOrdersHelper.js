@@ -20,19 +20,21 @@
                 for (var key in result) {
 
                     var sum = 0;
-                    var sumByOwner = 0;
+
 
                     //the function groupeBy is used to calculate the amount by user
                     var newResult = this.groupeBy(result[key], "OwnerId");
-                    console.log(newResult);
+                    var sumByOwner = 0;
                     for (var role in newResult) {
 
+                     sumByOwner = 0;
                         for (var a in newResult[role]) {
 
                             sumByOwner += newResult[role][a].TotalAmount;
                             newResult[role].sumByComm = sumByOwner;
                             newResult[role].owner = newResult[role][a].Owner.Name;
                         }
+
 
                     }
                     for (var a in result[key]) {
@@ -45,9 +47,9 @@
                             return newResult[key];
                         });
                     console.log(newOne);
-                    //console.log(result[key]);
+
                     arrayMapKeys.push({key: key, value: newOne, sum: sum});
-                    console.log(arrayMapKeys)
+
                 }
                 component.set("v.mapValues", arrayMapKeys);
 
